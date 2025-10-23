@@ -1,0 +1,39 @@
+{
+    "flight_paths": [
+      {
+        "from": "ATL",
+        "to": "NYC",
+        "cost": 200,
+        "connections": [
+          {
+            "from": "NYC",
+            "to": "LAX",
+            "cost": 250
+          },
+          {
+            "from": "NYC",
+            "to": "SFO",
+            "cost": 220
+          }
+        ]
+      },
+      {
+        "from": "ATL",
+        "to": "MIA",
+        "cost": 150,
+        "connections": [
+          {
+            "from": "MIA",
+            "to": "ORD",
+            "cost": 180
+          },
+          {
+            "from": "MIA",
+            "to": "BOS",
+            "cost": 190
+          }
+        ]
+      }
+    ]
+  }
+  
