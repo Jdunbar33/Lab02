@@ -14,29 +14,26 @@ st.write("This page displays graphs based on the collected data.")
 st.divider()
 st.header("Load Data")
 
-# CSV file uploader
-csv_file = st.file_uploader("Upload your CSV file", type="csv")
-if csv_file is not None:
-    try:
-        current_data_df = pd.read_csv(csv_file)
-        st.success("CSV data loaded successfully!")
-    except Exception as e:
-        st.error(f"Error loading CSV file: {e}")
-else:
-    current_data_df = pd.DataFrame()  
-    st.warning("Please upload a CSV file.")
+# Load CSV from repository (relative path)
+csv_file_path = 'data.csv'
 
-# JSON file uploader
-json_file = st.file_uploader("Upload your JSON file", type="json")
-if json_file is not None:
-    try:
+try:
+    current_data_df = pd.read_csv(csv_file_path)
+    st.success("CSV data loaded successfully!")
+except Exception as e:
+    st.error(f"Error loading CSV file: {e}")
+    current_data_df = pd.DataFrame()
+
+# Load JSON from repository (relative path)
+json_file_path = 'data.json'
+
+try:
+    with open(json_file_path, 'r') as json_file:
         json_data = json.load(json_file)
-        st.success("JSON data loaded successfully!")
-    except Exception as e:
-        st.error(f"Error loading JSON file: {e}")
-else:
-    json_data = {}  
-    st.warning("Please upload a JSON file.")
+    st.success("JSON data loaded successfully!")
+except Exception as e:
+    st.error(f"Error loading JSON file: {e}")
+    json_data = {}
 
 st.divider()
 st.header("Graphs")
@@ -178,4 +175,3 @@ for bar, cost in zip(bars, all_flight_costs):
     )
 
 st.pyplot(fig)
-
