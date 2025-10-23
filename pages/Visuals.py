@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import json
-import os
 import matplotlib.pyplot as plt
 
 st.set_page_config(
@@ -15,31 +14,29 @@ st.write("This page displays graphs based on the collected data.")
 st.divider()
 st.header("Load Data")
 
-csv_file_path = '/Users/jdunbar/Documents/CS1301/Lab02/data.csv'
-
-if os.path.exists(csv_file_path):
+# CSV file uploader
+csv_file = st.file_uploader("Upload your CSV file", type="csv")
+if csv_file is not None:
     try:
-        current_data_df = pd.read_csv(csv_file_path)
+        current_data_df = pd.read_csv(csv_file)
         st.success("CSV data loaded successfully!")
     except Exception as e:
         st.error(f"Error loading CSV file: {e}")
 else:
     current_data_df = pd.DataFrame()  
-    st.warning("CSV file not found.")
+    st.warning("Please upload a CSV file.")
 
-json_file_path = os.path.expanduser('~/Documents/CS1301/Lab02/data.json')
-st.write(f"Looking for JSON file at: {json_file_path}")  
-
-if os.path.exists(json_file_path):
+# JSON file uploader
+json_file = st.file_uploader("Upload your JSON file", type="json")
+if json_file is not None:
     try:
-        with open(json_file_path, 'r') as json_file:
-            json_data = json.load(json_file)
+        json_data = json.load(json_file)
         st.success("JSON data loaded successfully!")
     except Exception as e:
         st.error(f"Error loading JSON file: {e}")
 else:
     json_data = {}  
-    st.warning("JSON file not found.")
+    st.warning("Please upload a JSON file.")
 
 st.divider()
 st.header("Graphs")
@@ -181,3 +178,4 @@ for bar, cost in zip(bars, all_flight_costs):
     )
 
 st.pyplot(fig)
+
